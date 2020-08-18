@@ -6,6 +6,7 @@ use App\Folder;
 use App\Task;
 use App\Http\Requests\CreateTask;
 use App\Http\Requests\EditTask;
+use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 
@@ -15,9 +16,12 @@ class TaskController extends Controller
     public function index(int $id)
     {
         // 全てのフォルダー取得
-        $folders = Folder::all();
+        $folders = Auth::user()->folders()->get();
         // 選択中のフォルダー
         $current_folder = Folder::find($id);
+        if (is_null($current_folder)) {
+            abort(404);
+        }
         // 選択中のフォルダーに紐づくタスク
         $tasks = $current_folder->tasks()->get();
 
