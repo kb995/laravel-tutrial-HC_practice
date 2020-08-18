@@ -19,9 +19,9 @@ class TaskController extends Controller
         $folders = Auth::user()->folders()->get();
         // 選択中のフォルダー
         $current_folder = Folder::find($id);
-        if (is_null($current_folder)) {
-            abort(404);
-        }
+        // if (is_null($current_folder)) {
+            // abort(404);
+        // }
         // 選択中のフォルダーに紐づくタスク
         $tasks = $current_folder->tasks()->get();
 
